@@ -1,4 +1,4 @@
-name: Build and Push Prometheus Image
+name: Build and Push Alertmanager Image
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
       - main
 
     paths:
-      - 'prometheus/**'
+      - 'alertmanager/**'
 
 jobs:
   docker:
@@ -25,6 +25,6 @@ jobs:
       - name: Build and Push
         uses: docker/build-push-action@v5
         with:
-          context: ./prometheus
+          context: ./alertmanager
           push: true
-          tags: akwizzy/pilot-repo:prometheus
+          tags: akwizzy/pilot-repo:alertmanager

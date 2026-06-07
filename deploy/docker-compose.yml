@@ -1,0 +1,79 @@
+version: "3.9"
+
+services:
+
+  prometheus:
+    image: akwizzy/pilot-repo:prometheus
+    container_name: prometheus
+    restart: unless-stopped
+
+    ports:
+      - "9090:9090"
+
+    volumes:
+      - prometheus_data:/prometheus
+
+    networks:
+      - monitoring
+
+  grafana:
+    image: akwizzy/pilot-repo:grafana
+    container_name: grafana
+    restart: unless-stopped
+
+    ports:
+      - "3000:3000"
+
+    volumes:
+      - grafana_data:/var/lib/grafana
+
+    depends_on:
+      - loki
+
+    networks:
+      - monitoring
+
+  loki:
+    image: akwizzy/pilot-repo:loki
+    container_name: loki
+    restart: unless-stopped
+
+    ports:
+      - "3100:3100"
+
+    volumes:
+      - loki_data:/loki
+
+    networks:
+      - monitoring
+
+  alertmanager:
+    image: akwizzy/pilot-repo:alertmanager
+    container_name: alertmanager
+    restart: unless-stopped
+
+    ports:
+      - "9093:9093"
+
+    networks:
+      - monitoring
+
+  node-exporter:
+    image: akwizzy/pilot-repo:node-exporter
+    container_name: node-exporter
+    restart: unless-stopped
+
+    ports:
+      - "9100:9100"
+
+    networks:
+      - monitoring
+
+volumes:
+  prometheus_data:
+  grafana_data:
+  loki_data:
+
+networks:
+  monitoring:
+    external: true
