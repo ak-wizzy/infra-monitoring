@@ -2,19 +2,15 @@ version: "3.9"
 
 services:
   prometheus:
-    image: prom/prometheus:latest
+    image: akwizzy/prometheus-monitoring:latest
     container_name: prometheus
     restart: unless-stopped
 
-    command:
-      - "--config.file=/etc/prometheus/prometheus.yml"
-
-    volumes:
-      - ./prometheus/config:/etc/prometheus:ro
-      - prometheus_data:/prometheus
-
     ports:
       - "9090:9090"
+
+    volumes:
+      - prometheus_data:/prometheus
 
     networks:
       - monitoring
