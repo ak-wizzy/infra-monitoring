@@ -8,7 +8,7 @@ services:
     restart: unless-stopped
 
     ports:
-      - "9090:9090"
+      - "9090"
 
     volumes:
       - prometheus_data:/prometheus
@@ -22,7 +22,7 @@ services:
     restart: unless-stopped
 
     ports:
-      - "3000:3000"
+      - "3000"
 
     volumes:
       - grafana_data:/var/lib/grafana
@@ -32,6 +32,16 @@ services:
 
     networks:
       - monitoring
+      - reverse-proxy
+
+    labels:
+      - "traefik.enable=true"
+
+      - "traefik.http.routers.grafana.rule=Host(`grafana.aktechnoservices.com`)"
+      - "traefik.http.routers.grafana.entrypoints=websecure"
+      - "traefik.http.routers.grafana.tls.certresolver=letsencrypt"
+
+      - "traefik.http.services.grafana.loadbalancer.server.port=3000"
 
   loki:
     image: akwizzy/pilot-repo:loki
@@ -39,7 +49,7 @@ services:
     restart: unless-stopped
 
     ports:
-      - "3100:3100"
+      - "3100"
 
     volumes:
       - loki_data:/loki
@@ -53,10 +63,24 @@ services:
     restart: unless-stopped
 
     ports:
-      - "9093:9093"
+      - "9093"
+      
+    volumes:
+      - alertmanager_data:/alertmanager
 
     networks:
       - monitoring
+      - reverse-proxy
+
+    labels:
+      - "traefik.enable=true"
+
+      - "traefik.http.routers.alerts.rule=Host(`alerts.aktechnoservices.com`)"
+      - "traefik.http.routers.alerts.entrypoints=websecure"
+      - "traefik.http.routers.alerts.tls.certresolver=letsencrypt"
+
+      - "traefik.http.services.alerts.loadbalancer.server.port=9093"
+
 
   node-exporter:
     image: akwizzy/pilot-repo:node-exporter
@@ -92,4 +116,7 @@ volumes:
 
 networks:
   monitoring:
+    external: true
+
+  reverse-proxy:
     external: true
