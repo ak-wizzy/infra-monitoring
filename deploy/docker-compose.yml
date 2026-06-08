@@ -122,6 +122,30 @@ services:
     networks:
       - monitoring
 
+  cadvisor:
+    image: gcr.io/cadvisor/cadvisor:latest
+    container_name: cadvisor
+
+    restart: unless-stopped
+
+    expose:
+      - "8085"
+
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:ro
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+      - /dev/disk/:/dev/disk:ro
+
+    privileged: true
+
+    devices:
+      - /dev/kmsg
+
+    networks:
+      - monitoring
+
 volumes:
   prometheus_data:
   grafana_data:
