@@ -107,7 +107,7 @@ services:
       - monitoring
 
   promtail:
-    image: akwizzy/promtail-monitoring:latest
+    image: akwizzy/pilot-repo:promtail
     container_name: promtail
 
     restart: unless-stopped
