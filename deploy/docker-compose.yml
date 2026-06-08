@@ -129,7 +129,7 @@ services:
     restart: unless-stopped
 
     expose:
-      - "8085"
+      - "8085:8080"
 
     volumes:
       - /:/rootfs:ro
