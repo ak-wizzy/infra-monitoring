@@ -6,6 +6,7 @@ on:
       - main
     paths:
       - 'blackbox/**'
+      - '.github/workflows/blackbox.yml'
 
 jobs:
   docker:
