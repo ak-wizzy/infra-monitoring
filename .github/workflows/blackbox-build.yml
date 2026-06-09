@@ -5,6 +5,9 @@ on:
     branches:
       - main
 
+    paths:
+      - 'blackbox/**'
+
 jobs:
   docker:
     runs-on: ubuntu-latest
