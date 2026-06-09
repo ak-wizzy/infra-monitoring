@@ -15,4 +15,4 @@ modules:
       valid_status_codes: []
 
       fail_if_ssl: false
-      fail_if_not_ssl: true
+      fail_if_not_ssl: false
