@@ -1,6 +1,6 @@
-# Private Cloud Infra Monitoring Stack
+# Private Cloud Infrastructure Monitoring Stack
 
-A modern cloud-native infrastructure monitoring and observability platform built with Docker, GitHub Actions CI/CD, Docker Hub, Traefik reverse proxy, Prometheus, Grafana, Loki, Promtail, Alertmanager, and Node Exporter.
+A cloud-native infrastructure monitoring, logging, observability, and endpoint monitoring platform built with Docker, GitHub Actions CI/CD, Docker Hub, Prometheus, Grafana, Loki, Promtail, Alertmanager, cAdvisor, Blackbox Exporter, and Traefik reverse proxy.
 
 ---
 
@@ -9,28 +9,67 @@ A modern cloud-native infrastructure monitoring and observability platform built
 This project provides centralized:
 
 * Infrastructure monitoring
-* Metrics collection
-* Log aggregation
-* Alerting
-* Visualization
+* Docker container monitoring
+* Centralized log aggregation
+* SSL certificate monitoring
+* Endpoint health monitoring
+* Metrics visualization
+* Alerting and notification management
 * Reverse proxy integration
-* CI/CD container deployment
+* Automated CI/CD container deployment
 
-The stack is designed for self-hosted environments and follows a GitHub Actions → Docker Hub → Portainer deployment workflow.
+The platform is designed for self-hosted environments and follows a modern GitHub Actions → Docker Hub → Portainer deployment workflow.
 
 ---
 
 # Core Components
 
-| Service       | Purpose                                    |
-| ------------- | ------------------------------------------ |
-| Traefik       | Reverse proxy and SSL termination          |
-| Prometheus    | Metrics collection and alert evaluation    |
-| Grafana       | Dashboards and observability visualization |
-| Loki          | Centralized log aggregation                |
-| Promtail      | Log shipping agent                         |
-| Alertmanager  | Alert routing and notification handling    |
-| Node Exporter | Host-level system metrics exporter         |
+| Service           | Purpose                                            |
+| ----------------- | -------------------------------------------------- |
+| Traefik           | Reverse proxy, SSL termination, and HTTPS routing  |
+| Prometheus        | Metrics collection, scraping, and alert evaluation |
+| Grafana           | Dashboards and observability visualization         |
+| Loki              | Centralized log aggregation platform               |
+| Promtail          | Log shipping agent for Docker and Linux logs       |
+| Alertmanager      | Alert routing and notification management          |
+| Node Exporter     | Host-level Linux system metrics exporter           |
+| cAdvisor          | Docker container resource monitoring and metrics   |
+| Blackbox Exporter | SSL certificate, endpoint, and uptime monitoring   |
+
+---
+
+# Observability Features
+
+## Infrastructure Monitoring
+
+* CPU utilization monitoring
+* Memory utilization monitoring
+* Disk usage tracking
+* Network throughput visibility
+* Host uptime monitoring
+
+## Docker Container Monitoring
+
+* Per-container CPU usage
+* Per-container memory usage
+* Container network traffic
+* Container restart detection
+* Running container tracking
+
+## Centralized Logging
+
+* Docker container log aggregation
+* Linux host log collection
+* Grafana log dashboards
+* Centralized log search and filtering
+
+## SSL & Endpoint Monitoring
+
+* SSL certificate expiration monitoring
+* HTTPS endpoint health checks
+* HTTP response validation
+* TLS version visibility
+* Endpoint availability monitoring
 
 ---
 
@@ -39,49 +78,68 @@ The stack is designed for self-hosted environments and follows a GitHub Actions 
 ```text
 GitHub Push
     ↓
-GitHub Actions Build
+GitHub Actions Build Pipeline
     ↓
 Docker Hub Image Push
     ↓
 Portainer Stack Pull
     ↓
-Docker Deployment
+Container Deployment
 ```
+
+---
+
+# Deployment Architecture
+
+The stack uses:
+
+* Docker Compose orchestration
+* External Docker bridge networks
+* Reverse proxy routing via Traefik
+* Service-to-service Docker DNS resolution
+* GitHub Actions image automation
+* Docker Hub centralized image repository
 
 ---
 
 # Features
 
 * Docker-based deployment
-* GitHub Actions CI/CD
+* GitHub Actions CI/CD automation
 * Docker Hub image distribution
-* Prometheus alerting
 * Grafana dashboards
+* Prometheus alerting
 * Loki centralized logging
+* SSL certificate monitoring
+* Endpoint uptime monitoring
 * Traefik reverse proxy integration
-* Future-ready OIDC/SSO support
+* OIDC/SSO-ready architecture
 * Infrastructure observability
 
 ---
 
 # Network Architecture
 
-* Internal monitoring network
-* Reverse proxy network
-* Service-to-service Docker DNS resolution
-* Optional public exposure via Traefik
+## Monitoring Network
 
----
+Internal Docker network for:
 
-# Planned Enhancements
+* Prometheus
+* Grafana
+* Loki
+* Promtail
+* Alertmanager
+* Node Exporter
+* cAdvisor
+* Blackbox Exporter
 
-* OIDC SSO integration
-* HTTPS automation
-* Multi-node monitoring
-* Container health dashboards
-* Application log dashboards
-* Slack/Telegram alerting
-* Long-term metrics retention
+## Reverse Proxy Network
+
+External-facing Docker network for:
+
+* Grafana
+* Alertmanager
+* Traefik ingress routing
 
 ---
 
@@ -97,6 +155,8 @@ infra-monitoring/
 ├── promtail/
 ├── alertmanager/
 ├── node-exporter/
+├── cadvisor/
+├── blackbox/
 └── README.md
 ```
 
@@ -106,14 +166,48 @@ infra-monitoring/
 
 Services are deployed through:
 
-* GitHub Actions
-* Docker Hub
+* GitHub Actions CI/CD
+* Docker Hub image publishing
 * Portainer stack deployment
 
-No local bind-mounted configuration dependency is required for deployment updates.
+This deployment model removes dependency on local bind-mounted configuration updates and enables centralized image-based infrastructure management.
+
+---
+
+# Future Enhancements
+
+* OIDC SSO integration
+* Telegram alert notifications
+* Slack alert notifications
+* Multi-node monitoring
+* Windows VM monitoring
+* Linux VM monitoring
+* Distributed log ingestion
+* Long-term metrics retention
+* Grafana alerting optimization
+* Service health scoring
+* Synthetic transaction monitoring
+
+---
+
+# Technology Stack
+
+* Docker
+* Docker Compose
+* GitHub Actions
+* Docker Hub
+* Prometheus
+* Grafana
+* Loki
+* Promtail
+* Alertmanager
+* cAdvisor
+* Blackbox Exporter
+* Node Exporter
+* Traefik
 
 ---
 
 # License
 
-Internal Infrastructure Project – AK Techno Services Ltd.
+Internal Infrastructure Project — AK Techno Services Ltd.
