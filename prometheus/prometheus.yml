@@ -40,7 +40,11 @@ scrape_configs:
           - https://automation.aktechnoservices.com
           - https://docs.aktechnoservices.com
           - https://portfolio.aktechnoservices.com
-          - https://google.com
+          - https://rdg.aktechnoservices.com
+          - https://route.aktechnoservices.com
+          - https://cntrlplane.aktechnoservices.com
+          - https://sso-demo.aktechnoservices.com
+          - https://socials-sso.aktechnoservices.com
 
     relabel_configs:
       - source_labels: [__address__]
