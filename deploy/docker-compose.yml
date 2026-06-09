@@ -146,6 +146,25 @@ services:
     networks:
       - monitoring
 
+  blackbox-exporter:
+    image: prom/blackbox-exporter:latest
+    container_name: blackbox-exporter
+
+    restart: unless-stopped
+
+    expose:
+      - "9115"
+
+    command:
+      - '--config.file=/config/blackbox.yml'
+ 
+    volumes:
+      - ./blackbox/blackbox.yml:/config/blackbox.yml:ro
+
+    networks:
+      - monitoring
+  
+
 volumes:
   prometheus_data:
   grafana_data:
