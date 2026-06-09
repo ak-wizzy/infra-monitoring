@@ -26,3 +26,28 @@ scrape_configs:
     static_configs:
       - targets: 
           - '192.168.1.60:9182'
+
+  - job_name: 'blackbox'
+
+    metrics_path: /probe
+
+    params:
+      module: [https_2xx]
+
+    static_configs:
+      - targets:
+          - https://grafana.aktechnoservices.com
+          - https://automation.aktechnoservices.com
+          - https://docs.aktechnoservices.com
+          - https://portfolio.aktechnoservices.com
+          - https://google.com
+
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+
+      - source_labels: [__param_target]
+        target_label: instance
+
+      - target_label: __address__
+        replacement: blackbox-exporter:9115
