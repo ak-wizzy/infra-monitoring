@@ -23,3 +23,5 @@ groups:
         annotations:
           summary: "High CPU usage detected"
           description: "CPU usage is above 80% for more than 2 minutes."
+
+# rebuild trigger
