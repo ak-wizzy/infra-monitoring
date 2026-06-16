@@ -39,21 +39,10 @@ services:
       - "traefik.http.routers.grafana.rule=Host(`grafana.aktechnoservices.com`)"
       - "traefik.http.routers.grafana.entrypoints=websecure"
       - "traefik.http.routers.grafana.tls.certresolver=cloudflare"
-      - "traefik.http.routers.grafana.middlewares=entra-chain@docker"
       - "traefik.http.services.grafana.loadbalancer.server.port=3000"
 
     environment:
       - GF_SERVER_ROOT_URL=${GF_SERVER_ROOT_URL}
-
-      - GF_AUTH_GENERIC_OAUTH_ENABLED=${GF_AUTH_GENERIC_OAUTH_ENABLED}
-      - GF_AUTH_GENERIC_OAUTH_NAME=${GF_AUTH_GENERIC_OAUTH_NAME}
-
-      - GF_AUTH_GENERIC_OAUTH_CLIENT_ID=${GF_AUTH_GENERIC_OAUTH_CLIENT_ID}
-      - GF_AUTH_GENERIC_OAUTH_CLIENT_SECRET=${GF_AUTH_GENERIC_OAUTH_CLIENT_SECRET}
-
-      - GF_AUTH_GENERIC_OAUTH_AUTH_URL=${GF_AUTH_GENERIC_OAUTH_AUTH_URL}
-      - GF_AUTH_GENERIC_OAUTH_TOKEN_URL=${GF_AUTH_GENERIC_OAUTH_TOKEN_URL}
-      - GF_AUTH_GENERIC_OAUTH_API_URL=${GF_AUTH_GENERIC_OAUTH_API_URL}
 
   loki:
     image: akwizzy/pilot-repo:loki
