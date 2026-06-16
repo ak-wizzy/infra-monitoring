@@ -39,7 +39,7 @@ services:
       - "traefik.http.routers.grafana.rule=Host(`grafana.aktechnoservices.com`)"
       - "traefik.http.routers.grafana.entrypoints=websecure"
       - "traefik.http.routers.grafana.tls.certresolver=cloudflare"
-      - "traefik.http.routers.guacamole-rdg.middlewares=entra-chain@docker"
+      - "traefik.http.routers.grafana.middlewares=entra-chain@docker"
       - "traefik.http.services.grafana.loadbalancer.server.port=3000"
 
     environment:
