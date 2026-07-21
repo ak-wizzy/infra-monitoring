@@ -211,3 +211,24 @@ This deployment model removes dependency on local bind-mounted configuration upd
 # License
 
 Internal Infrastructure Project — AK Techno Services Ltd.
+
+           Internet
+               │
+         Cloudflare
+               │
+          TP-Link Router
+               │
+            Ubuntu Host
+               │
+        Docker + Traefik
+               │
+ ┌─────────────┴─────────────┐
+ │                           │
+ Metrics                  Logs
+ │                           │
+Prometheus               Promtail
+ │                           │
+ │                          Loki
+ └─────────────┬─────────────┘
+               │
+            Grafana

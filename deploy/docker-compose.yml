@@ -44,6 +44,8 @@ services:
 
     environment:
       - GF_SERVER_ROOT_URL=${GF_SERVER_ROOT_URL}
+      - GF_AUTH_AZUREAD_ALLOW_ASSIGN_GRAFANA_ADMIN=true
+      - GF_AUTH_AZUREAD_ROLE_ATTRIBUTE_PATH=contains(groups[*], 'fa424cad-379d-4048-b72f-e1238b5595a1') && 'GrafanaAdmin' || 'Viewer'
 
   loki:
     image: akwizzy/pilot-repo:loki
