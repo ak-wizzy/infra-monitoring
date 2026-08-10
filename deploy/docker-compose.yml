@@ -109,6 +109,7 @@ services:
     volumes:
       - /var/lib/docker/containers:/var/lib/docker/containers:ro
       - /var/run/docker.sock:/var/run/docker.sock
+      - promtail_positions:/tmp
 
     command:
       - -config.file=/etc/promtail/config.yml
@@ -152,12 +153,12 @@ services:
     networks:
        - monitoring
   
-
 volumes:
   prometheus_data:
   grafana_data:
   loki_data:
   alertmanager_data:
+  promtail_positions:
 
 networks:
   monitoring:
