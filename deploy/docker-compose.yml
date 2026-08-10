@@ -52,6 +52,9 @@ services:
     container_name: loki
     restart: unless-stopped
 
+    logging:
+      driver: "none"
+
     expose:
       - "3100"
 
