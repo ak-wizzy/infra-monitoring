@@ -55,8 +55,8 @@ services:
     logging:
       driver: "none"
 
-    expose:
-      - "3100"
+    port:
+      - "3100:3100"
 
     volumes:
       - loki_data:/loki
