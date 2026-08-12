@@ -55,7 +55,7 @@ services:
     logging:
       driver: "none"
 
-    port:
+    ports:
       - "3100:3100"
 
     volumes:
