@@ -155,13 +155,32 @@ services:
 
     networks:
        - monitoring
-  
+
+    ntopng-exporter:
+      image: akwizzy/pilot-repo:ntopng-exporter
+      container_name: ntopng-exporter
+      restart: unless-stopped
+
+      expose:
+        - "3001"
+
+      environment:
+        NTOPNG_USERNAME: ${NTOPNG_USERNAME}
+        NTOPNG_PASSWORD: ${NTOPNG_PASSWORD}
+
+      volumes:
+        - ntopng_exporter_config:/config
+
+      networks:
+        - monitoring
+
 volumes:
   prometheus_data:
   grafana_data:
   loki_data:
   alertmanager_data:
   promtail_positions:
+  ntopng_exporter_config:
 
 networks:
   monitoring:

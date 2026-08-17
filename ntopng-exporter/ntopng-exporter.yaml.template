@@ -1,0 +1,28 @@
+ntopng:
+  endpoint: "http://10.50.0.1:3000"
+
+  user: "__NTOPNG_USERNAME__"
+  password: "__NTOPNG_PASSWORD__"
+
+  authMethod: cookie
+
+  scrapeInterval: 15s
+
+  scrapeTargets:
+    - hosts
+    - interfaces
+    - l7protocols
+
+host:
+  interfacesToMonitor:
+    - em1
+
+metric:
+  localSubnetsOnly:
+    - "10.50.0.0/24"
+
+  excludeDNSMetrics: false
+
+serve:
+  ip: 0.0.0.0
+  port: 3001
