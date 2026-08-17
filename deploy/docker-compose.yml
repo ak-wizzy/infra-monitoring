@@ -165,8 +165,10 @@ services:
       - "3001"
 
     environment:
-      NTOPNG_USERNAME: ${NTOPNG_USERNAME}
-      NTOPNG_PASSWORD: ${NTOPNG_PASSWORD}
+      - NTOPNG_ENDPOINT=${NTOPNG_ENDPOINT}
+      - NTOPNG_USERNAME=${NTOPNG_USERNAME}
+      - NTOPNG_PASSWORD=${NTOPNG_PASSWORD}
+      
 
     volumes:
       - ntopng_exporter_config:/config
