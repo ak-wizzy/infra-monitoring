@@ -1,5 +1,12 @@
-FROM aauren/ntopng-exporter:v1.6.0
+FROM alpine:3.22
 
-COPY --chmod=644 ntopng-exporter.yaml.template /config/ntopng-exporter.yaml
+RUN apk add --no-cache ca-certificates
+
+COPY --from=aauren/ntopng-exporter:v1.6.0 /ntopng-exporter /usr/local/bin/ntopng-exporter
+COPY entrypoint.sh /entrypoint.sh
+
+RUN chmod +x /entrypoint.sh
 
 EXPOSE 3001
+
+ENTRYPOINT ["/entrypoint.sh"]

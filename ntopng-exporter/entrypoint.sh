@@ -1,15 +1,33 @@
 #!/bin/sh
 set -eu
 
-: "${NTOPNG_USERNAME:?NTOPNG_USERNAME is required}"
-: "${NTOPNG_PASSWORD:?NTOPNG_PASSWORD is required}"
+mkdir -p /config
 
-sed \
-  -e "s|__NTOPNG_USERNAME__|${NTOPNG_USERNAME}|g" \
-  -e "s|__NTOPNG_PASSWORD__|${NTOPNG_PASSWORD}|g" \
-  /ntopng-exporter.yaml.template \
-  > /config/ntopng-exporter.yaml
+cat > /config/ntopng-exporter.yaml <<EOF
+ntopng:
+  endpoint: "${NTOPNG_ENDPOINT}"
+  allowUnsafeTLS: false
+  user: "${NTOPNG_USERNAME}"
+  password: "${NTOPNG_PASSWORD}"
+  authMethod: cookie
+  scrapeInterval: 15s
+  scrapeTargets:
+    - hosts
+    - interfaces
+    - l7protocols
 
-chmod 600 /config/ntopng-exporter.yaml
+host:
+  interfacesToMonitor:
+    - em1
 
-exec /ntopng-exporter
+metric:
+  localSubnetsOnly:
+    - "10.50.0.0/24"
+  excludeDNSMetrics: false
+
+serve:
+  ip: 0.0.0.0
+  port: 3001
+EOF
+
+exec /usr/local/bin/ntopng-exporter
